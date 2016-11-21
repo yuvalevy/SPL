@@ -25,7 +25,7 @@ public:
 	virtual string toString() = 0;
 	virtual ~Card();
 	Card(Shape s);
-	virtual int compareTo(Card& other, bool onlyType = false); // 0-equal, 1-the first is grater, -1 - the first is smaller
+	virtual int compareTo(Card& other, bool compareShape = false); // 0-equal, 1-the first is grater, -1 - the first is smaller
 };
 
 class FigureCard : public Card {
@@ -33,7 +33,7 @@ private:
 	Figure figure;
 public:
 	FigureCard(Figure f, Shape s);
-	int compareTo(Card & other, bool onlyType) override;
+	int compareTo(Card & other, bool compareShape = false) override;
 	virtual string toString() override;
 };
 
@@ -42,7 +42,7 @@ private:
 	int number;
 public:
 	NumericCard(int n,Shape s);
-	int compareTo(Card & other, bool onlyType)override;
+	int compareTo(Card & other, bool onlyType = false)override;
 	virtual string toString() override;
 };
 

@@ -12,9 +12,11 @@ private:
 	const string name;
 public:
 	Player(string name, int pos);
-	Card* getTheMostOf();;
-	Card* getTheLeastOf();
-	pair<int, Card*> countNext(int pos, vector<Card*> handCards);
+	pair<int, Card&> getTheMostOf();
+	vector<Card&> bulkSearch(int pos, vector<Card*> handCards);
+	pair<int, Card&> getTheLeastOf();
+	int countReviiyot();
+	pair<int, Card&> countValue(int pos, vector<Card*> handCards);
 	int getPos(); //Returns the possition of the player
 	string getName();   //Returns the name of the player
 };

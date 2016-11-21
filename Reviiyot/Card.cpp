@@ -6,12 +6,11 @@ Card::~Card(){
 
 }
 
-Card::Card(Shape s)
+Card::Card(Shape s):shape(s)
 {
-	shape = s;
 }
 
-int Card::compareTo(Card& other, bool onlyType)
+int Card::compareTo(Card& other, bool compareShape)
 {
 	if (shape < other.shape)
 	{
@@ -37,12 +36,14 @@ string Card::toString() {
 	return ret;
 }
 
-FigureCard::FigureCard(Figure f, Shape s):Card(s)
+FigureCard::FigureCard(Figure f, Shape s):Card(s), figure(f)
 {
-	figure = f;
 }
 
-int FigureCard::compareTo(Card& other, bool onlyType)
+/*
+Compares two cards. if oncompareShape is true, compares the shapes too
+*/
+int FigureCard::compareTo(Card& other, bool compareShape)
 {
 	if (NumericCard* p = dynamic_cast<NumericCard*>(&other))
 	{
@@ -61,11 +62,13 @@ int FigureCard::compareTo(Card& other, bool onlyType)
 			return 1;
 		}
 		else {
-			if (onlyType)
+
+			if (compareShape)
 			{
-				return 0;
+				return Card::compareTo(other);
 			}
-			return Card::compareTo(other);
+
+			return 0;
 		}
 	}
 }
@@ -88,12 +91,14 @@ string FigureCard:: toString() {
 	return  ret + "" + Card::toString();
 }
 
-NumericCard::NumericCard(int n,Shape s):Card(s)
+NumericCard::NumericCard(int n,Shape s):Card(s), number(n)
 {
-	number = n;
 }
 
-int NumericCard::compareTo(Card& other, bool onlyType)
+/*
+Compares two cards. if oncompareShape is true, compares the shapes too
+*/
+int NumericCard::compareTo(Card& other, bool compareShape)
 {
 	if (FigureCard* p = dynamic_cast<FigureCard*>(&other))
 	{
@@ -112,11 +117,11 @@ int NumericCard::compareTo(Card& other, bool onlyType)
 		}
 		else
 		{
-			if (onlyType)
+			if (compareShape)
 			{
-				return 0;
+				return Card::compareTo(other);
 			}
-			return Card::compareTo(other);
+			return 0;
 		}
 	}
 }

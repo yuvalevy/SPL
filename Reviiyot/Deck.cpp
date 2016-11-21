@@ -6,15 +6,13 @@ Deck::Deck()
 {
 }
 
-Deck::Deck(string deckLine)
-{	
-	cards = new stack<Card*>();
-
+Deck::Deck(string deckLine):cards(new stack<Card*>())
+{
 	string s = deckLine;
 	string delimiter = " ";
 
 	size_t pos = s.length()-1;
-	std::string token;
+	string token;
 
 	while ((pos = s.find_last_of(delimiter)) != string::npos) {
 
@@ -26,16 +24,25 @@ Deck::Deck(string deckLine)
 	addToStack(s);
 }
 
+/*
+Deletes and returns the top card from the deck
+*/
 Card* Deck::fetchCard() {
 	Card* card = cards->top();
 	cards->pop();
 	return card;
 }
 
+/*
+Returns the number of cards in the deck
+*/
 int Deck::getNumberOfCards() {
 	return cards->size();
 }
 
+/*
+Adds a card to the deck according to the token value
+*/
 void Deck::addToStack(string token)
 {
 	char cshape = token.at(token.length() - 1);
@@ -44,27 +51,28 @@ void Deck::addToStack(string token)
 
 	switch (cshape)
 	{
-	case 'D': shape = Shape::Diamond; break;
-	case 'H': shape = Shape::Heart; break;
-	case 'C': shape = Shape::Club; break;
-	case 'S': shape = Shape::Spade; break;
+		case 'D': shape = Shape::Diamond; break;
+		case 'H': shape = Shape::Heart; break;
+		case 'C': shape = Shape::Club; break;
+		case 'S': shape = Shape::Spade; break;
 	}
 
 	try
 	{
+		//tryparse to int
 		int num = stoi(value);
 		cards->push(new NumericCard(num, shape));
 	}
 	catch (const invalid_argument)
 	{
+		//value is not a number, it is a single char as a figure
 		switch (value.at(0))
 		{
-		case 'A': cards->push(new FigureCard(Figure::Ace, shape)); break;
-		case 'J': cards->push(new FigureCard(Figure::Jack, shape)); break;
-		case 'K': cards->push(new FigureCard(Figure::King, shape)); break;
-		case 'Q': cards->push(new FigureCard(Figure::Queen, shape)); break;
+			case 'A': cards->push(new FigureCard(Figure::Ace, shape)); break;
+			case 'J': cards->push(new FigureCard(Figure::Jack, shape)); break;
+			case 'K': cards->push(new FigureCard(Figure::King, shape)); break;
+			case 'Q': cards->push(new FigureCard(Figure::Queen, shape)); break;
 		}
-
 	}
 
 }
