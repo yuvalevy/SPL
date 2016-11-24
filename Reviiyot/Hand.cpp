@@ -38,12 +38,6 @@ bool Hand::removeCard(Card &card) {
 	int i = 0;
 
 	while (i != handCards->size() && !finished) {
-		//TODO add this -> pointer 
-		/*if (handCards->at(i) == &card)
-		{
-			handCards->erase(handCards->begin() + i);
-			finished = true;
-		}*/
 		if (card.compareTo(*(handCards->at(i))) == 0) {
 			handCards->erase(handCards->begin() + i);
 			finished = true;
@@ -53,9 +47,30 @@ bool Hand::removeCard(Card &card) {
 	return finished;
 }
 
+/*
+Search all cards by the value of 'card'
+*/
 vector<Card*> Hand::search(Card & card)
 {
-	return vector<Card*>();
+	vector<Card*> vec = vector<Card*>();
+	bool toStop = false;
+	int i = 0;
+
+	while (!toStop && i < handCards->size())
+	{
+		Card* cur = handCards->at(i);
+		if (cur->compareTo(card) == 0)
+		{
+			vec.push_back(cur);
+		}
+		else if(cur->compareTo(card) == 1)
+		{
+			toStop = true;
+		}
+		i++;
+	}
+	
+	return vec;
 }
 
 /*
@@ -63,20 +78,6 @@ Returns the number of cards in the hand
 */
 int Hand::getNumberOfCards() {
 	return handCards->size();
-}
-
-//vector<Card*> Hand::getCards()
-//{
-//	//TODO Copy constructor
-//	return *handCards;
-//}
-
-string Hand::toString() {
-	string ret = "";
-	for (size_t i = 0; i < handCards->size(); i++) {
-		ret += handCards->at(i)->toString()+" ";
-	}
-	return ret;
 }
 
 /*
@@ -204,4 +205,12 @@ void Hand::deleteValue(Card& card) {
 			compare = handCards->at(i)->compareTo(card);
 		}
 	}
+}
+
+string Hand::toString() {
+	string ret = "";
+	for (size_t i = 0; i < handCards->size(); i++) {
+		ret += handCards->at(i)->toString() + " ";
+	}
+	return ret;
 }
