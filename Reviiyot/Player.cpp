@@ -42,3 +42,8 @@ string Player::getName()
 {
 	return name;
 }
+
+pair<int, Card&> Player::ask()
+{
+	return pair<int, Card&>(5,NumericCard(3,Shape::Club));
+}

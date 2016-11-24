@@ -53,6 +53,11 @@ bool Hand::removeCard(Card &card) {
 	return finished;
 }
 
+vector<Card*> Hand::search(Card & card)
+{
+	return vector<Card*>();
+}
+
 /*
 Returns the number of cards in the hand
 */
@@ -60,15 +65,15 @@ int Hand::getNumberOfCards() {
 	return handCards->size();
 }
 
-vector<Card*> Hand::getCards()
-{
-	//TODO Copy constructor
-	return *handCards;
-}
+//vector<Card*> Hand::getCards()
+//{
+//	//TODO Copy constructor
+//	return *handCards;
+//}
 
 string Hand::toString() {
 	string ret = "";
-	for (int i = 0; i < handCards->size(); i++) {
+	for (size_t i = 0; i < handCards->size(); i++) {
 		ret += handCards->at(i)->toString()+" ";
 	}
 	return ret;
@@ -78,7 +83,7 @@ string Hand::toString() {
 Counts the amount of cards of the current value (represented by pos parameter)
 @param pos index at the vector
 */
-pair<int, Card*> Hand::countValue(int pos)
+pair<int, Card*> Hand::countValue(size_t pos)
 {
 	Card* firstCard = handCards->at(pos);
 	int count = 1;
@@ -101,7 +106,7 @@ pair<int, Card*> Hand::countValue(int pos)
 	return pair<int, Card*>(count, firstCard);
 }
 
-pair<int, Card&>  Hand::getTheMostOf()
+pair<int, Card&>  Hand::getTheMost()
 {
 	pair<int, Card*> max = countValue(0);
 
@@ -133,8 +138,7 @@ pair<int, Card&>  Hand::getTheMostOf()
 	return pair<int,Card&>(max.first, *(max.second));
 }
 
-
-pair<int, Card&>  Hand::getTheLeastOf()
+pair<int, Card&>  Hand::getTheLeast()
 {
 	pair<int, Card*> min = countValue(0);
 
@@ -166,50 +170,15 @@ pair<int, Card&>  Hand::getTheLeastOf()
 	return pair<int, Card&>(min.first, *(min.second));
 }
 
-//Card * Player::getTheLeastOf()
-//{
-//	vector<Card*> handCards = Hand::getCards();
-//	pair<int, Card*> min = countValue(0, handCards);
-//	int pos = min.first;
-//	bool end = false;
-//	while (!end)
-//	{
-//		pair<int, Card*> ismin = countValue(pos, handCards);
-//
-//		if (ismin.first < min.first)
-//		{
-//			min = ismin;
-//		}
-//		else if (ismin.first == min.first)
-//		{
-//			if (ismin.second->compareTo(*(min.second)) == -1)
-//			{
-//				min = ismin;
-//			}
-//		}
-//
-//		pos = pos + ismin.first;
-//		if (pos == handCards.size() - 1)
-//		{
-//			end = true;
-//		}
-//	}
-//
-//	return min.second;
-//}
-int Hand::countReviiyot() {
+void Hand::removeReviiyot() {
 
-	pair<int, Card&>  crds = getTheMostOf();
-	int count = 0;
+	pair<int, Card&>  crds = getTheMost();
 
 	while (crds.first == 4)
 	{
-		count++;
 		deleteValue(crds.second);
-		crds = getTheMostOf();
+		crds = getTheMost();
 	}
-
-	return count;
 }
 
 void Hand::deleteValue(Card& card) {

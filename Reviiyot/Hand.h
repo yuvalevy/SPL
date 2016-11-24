@@ -15,14 +15,15 @@ public:
 	Hand();
 	bool addCard(Card &card);
 	bool removeCard(Card &card);
+	vector<Card*> search(Card& card); // Search the cards with the same value of 'card' (returns them but doesn't removes them)
 	int getNumberOfCards(); // Get the number of cards in hand
-	vector<Card*> getCards();
+	//vector<Card*> getCards();
 	string toString();
-	pair<int, Card&> getTheMostOf();
-	pair<int, Card&> getTheLeastOf();
+	pair<int, Card&> getTheMost();
+	pair<int, Card&> getTheLeast();
 	void deleteValue(Card & card);
-	pair<int, Card*> countValue(int pos);
-	int countReviiyot();
+	pair<int, Card*> countValue(size_t pos);
+	void removeReviiyot();
 	// Return a list of the cards, separated by space, in one line, in a sorted order, ex: "2S 5D 10H"
 };
 
