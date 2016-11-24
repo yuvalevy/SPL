@@ -10,13 +10,13 @@ Game::Game(char* configurationFile)
 	cout << deck.toString() << endl;
 	cout << deck.getNumberOfCards() << endl;
 	Player p1 = Player("Linoy",1);
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		Card* c = deck.fetchCard();
 		p1.addCard(*c);
 	}
-	Card* resultMost = p1.getTheMostOf();
-	Card* resultLeast = p1.getTheLeastOf();
+	pair<int,Card&> resultMost = p1.getTheMostOf(); //A
+	//pair<int, Card&> resultLeast = p1.getTheLeastOf();//2
 }
 
 void Game::init() {}

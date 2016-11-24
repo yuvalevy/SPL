@@ -33,7 +33,7 @@ private:
 	Figure figure;
 public:
 	FigureCard(Figure f, Shape s);
-	int compareTo(Card & other, bool compareShape = false) override;
+	virtual int compareTo(Card & other, bool compareShape = false) override;
 	virtual string toString() override;
 };
 
@@ -42,7 +42,7 @@ private:
 	int number;
 public:
 	NumericCard(int n,Shape s);
-	int compareTo(Card & other, bool onlyType = false)override;
+	virtual int compareTo(Card & other, bool onlyType = false) override;
 	virtual string toString() override;
 };
 
