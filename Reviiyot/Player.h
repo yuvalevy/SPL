@@ -13,8 +13,8 @@ private:
 public:
 	Player(string name, int pos);
 	pair<int, Card&> getTheMostOf();
-	vector<Card&> bulkSearch(int pos, vector<Card*> handCards);
-	pair<int, Card&> getTheLeastOf();
+	//vector<Card*> bulkSearch(int pos, vector<Card*> handCards);
+	//pair<int, Card&> getTheLeastOf();
 	int countReviiyot();
 	pair<int, Card&> countValue(int pos, vector<Card*> handCards);
 	int getPos(); //Returns the possition of the player

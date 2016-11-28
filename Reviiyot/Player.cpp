@@ -36,99 +36,99 @@ pair<int, Card&>  Player::getTheMostOf()
 	return max;
 }
 
-vector<Card&> Player::bulkSearch(int pos, vector<Card*> handCards)
-{
-	vector<Card&> vec = vector<Card&>();
-	vec.push_back(*(handCards.at(pos)));
-	
-	Card* firstCard = handCards.at(pos);
-	pos++;
-	bool toStop = false;
-
-	while (!toStop)
-	{
-		if (handCards.at(pos)->compareTo(*firstCard) == 0)
-		{
-			vec.push_back(*(handCards.at(pos)));
-		}
-		else
-		{
-			toStop = true;
-		}
-		pos++;
-		if (pos == handCards.size())
-		{
-			toStop = true;
-		}
-	}
-
-	return vec;
-}
-
-pair<int, Card&> Player::getTheLeastOf()
-{
-	vector<Card*> handCards = Hand::getCards();
-	pair<int, Card&> min = countValue(0, handCards);
-	int pos = min.first;
-	bool end = false;
-	while (!end)
-	{
-		pair<int, Card&> ismin = countValue(pos, handCards);
-
-		if (ismin.first < min.first)
-		{
-			min = ismin;
-		}
-		else if (ismin.first == min.first)
-		{
-			if (ismin.second.compareTo(min.second) == -1)
-			{
-				min = ismin;
-			}
-		}
-
-		pos = pos + ismin.first;
-		if (pos == handCards.size() - 1)
-		{
-			end = true;
-		}
-	}
-
-	return min;
-}
-
-//
-//Card * Player::getTheLeastOf()
+//vector<Card*> Player::bulkSearch(int pos, vector<Card*> handCards)
 //{
-//	vector<Card*> handCards = Hand::getCards();
-//	pair<int, Card*> min = countValue(0, handCards);
-//	int pos = min.first;
-//	bool end = false;
-//	while (!end)
+//	//vec.push_back(*(handCards.at(pos)));
+//	/*
+//	Card* firstCard = handCards.at(pos);
+//	pos++;
+//	bool toStop = false;
+//
+//	while (!toStop)
 //	{
-//		pair<int, Card*> ismin = countValue(pos, handCards);
-//
-//		if (ismin.first < min.first)
+//		if (handCards.at(pos)->compareTo(*firstCard) == 0)
 //		{
-//			min = ismin;
+//			vec.push_back(*(handCards.at(pos)));
 //		}
-//		else if (ismin.first == min.first)
+//		else
 //		{
-//			if (ismin.second->compareTo(*(min.second)) == -1)
-//			{
-//				min = ismin;
-//			}
+//			toStop = true;
 //		}
-//
-//		pos = pos + ismin.first;
-//		if (pos == handCards.size() - 1)
+//		pos++;
+//		if (pos == handCards.size())
 //		{
-//			end = true;
+//			toStop = true;
 //		}
 //	}
-//
-//	return min.second;
+//*/
+//	return vector<Card*>();
 //}
+
+////pair<int, Card&> Player::getTheLeastOf()
+////{
+////	vector<Card*> handCards = Hand::getCards();
+////	pair<int, Card&> min = countValue(0, handCards);
+////	int pos = min.first;
+////	bool end = false;
+////	while (!end)
+////	{
+////		pair<int, Card&> ismin = countValue(pos, handCards);
+////
+////		if (ismin.first < min.first)
+////		{
+////			min = ismin;
+////		}
+////		else if (ismin.first == min.first)
+////		{
+////			if (ismin.second.compareTo(min.second) == -1)
+////			{
+////				min = ismin;
+////			}
+////		}
+////
+////		pos = pos + ismin.first;
+////		if (pos == handCards.size() - 1)
+////		{
+////			end = true;
+////		}
+////	}
+////
+////	return min;
+////}
+
+//////Card * Player::getTheLeastOf()
+//////{
+//////	vector<Card*> handCards = Hand::getCards();
+//////	pair<int, Card*> min = countValue(0, handCards);
+//////	int pos = min.first;
+//////	bool end = false;
+//////	while (!end)
+//////	{
+//////		pair<int, Card*> ismin = countValue(pos, handCards);
+//////
+//////		if (ismin.first < min.first)
+//////		{
+//////			min = ismin;
+//////		}
+//////		else if (ismin.first == min.first)
+//////		{
+//////			if (ismin.second->compareTo(*(min.second)) == -1)
+//////			{
+//////				min = ismin;
+//////			}
+//////		}
+//////
+//////		pos = pos + ismin.first;
+//////		if (pos == handCards.size() - 1)
+//////		{
+//////			end = true;
+//////		}
+//////	}
+//////
+//////	return min.second;
+//////}
+
+
 int Player::countReviiyot() {
 
 	pair<int, Card&>  crds = getTheMostOf();

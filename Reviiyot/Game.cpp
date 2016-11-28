@@ -15,8 +15,8 @@ Game::Game(char* configurationFile)
 		Card* c = deck.fetchCard();
 		p1.addCard(*c);
 	}
-	Card* resultMost = p1.getTheMostOf();
-	Card* resultLeast = p1.getTheLeastOf();
+	pair<int,Card&> resultMost = p1.getTheMostOf(); //A
+	//pair<int, Card&> resultLeast = p1.getTheLeastOf(); //2 
 }
 
 void Game::init() {}

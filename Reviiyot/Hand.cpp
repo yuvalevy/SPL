@@ -74,10 +74,13 @@ string Hand::toString() {
 	return ret;
 }
 
+/*
+Deleting all cardss in hand that has 'card' value
+*/
 void Hand::deleteValue(Card& card) {
 	int i = 0;
 	int compare = handCards->at(i)->compareTo(card);
-	while (compare <= 0)
+	while (compare <= 0) // the hand is sorded by value and therefor at the moment we reeached the last card with the given value, we can stop looking
 	{
 		if (compare == -1)
 		{
