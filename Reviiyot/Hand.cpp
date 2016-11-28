@@ -38,12 +38,6 @@ bool Hand::removeCard(Card &card) {
 	int i = 0;
 
 	while (i != handCards->size() && !finished) {
-		//TODO add this -> pointer 
-		/*if (handCards->at(i) == &card)
-		{
-			handCards->erase(handCards->begin() + i);
-			finished = true;
-		}*/
 		if (card.compareTo(*(handCards->at(i))) == 0) {
 			handCards->erase(handCards->begin() + i);
 			finished = true;
@@ -54,30 +48,148 @@ bool Hand::removeCard(Card &card) {
 }
 
 /*
+Search all cards by the value of 'card'
+*/
+vector<Card*> Hand::search(Card & card)
+{
+	vector<Card*> vec = vector<Card*>();
+	bool toStop = false;
+	size_t i = 0;
+
+	while (!toStop && i < handCards->size())
+	{
+		Card* cur = handCards->at(i);
+		if (cur->compareTo(card) == 0)
+		{
+			vec.push_back(cur);
+		}
+		else if(cur->compareTo(card) == 1)
+		{
+			toStop = true;
+		}
+		i++;
+	}
+	
+	return vec;
+}
+
+/*
 Returns the number of cards in the hand
 */
 int Hand::getNumberOfCards() {
 	return handCards->size();
 }
 
-vector<Card*> Hand::getCards()
+/*
+Counts the amount of cards of the current value (represented by pos parameter)
+@param pos index at the vector
+*/
+pair<int, Card*> Hand::countValue(size_t pos)
 {
-	//TODO Copy constructor
-	return *handCards;
+	Card* firstCard = handCards->at(pos);
+	int count = 1;
+	pos++;
+	bool toStop = false;
+
+	while (!toStop && pos < handCards->size())
+	{
+		if (handCards->at(pos)->compareTo(*firstCard) == 0)
+		{
+			count++;
+		}
+		else
+		{
+			toStop = true;
+		}
+		pos++;
+	}
+
+	return pair<int, Card*>(count, firstCard);
 }
 
-string Hand::toString() {
-	string ret = "";
-	for (int i = 0; i < handCards->size(); i++) {
-		ret += handCards->at(i)->toString()+" ";
+//TODO return copy consructor
+pair<int, Card&>  Hand::getTheMost()
+{
+	pair<int, Card*> max = countValue(0);
+
+	int pos = max.first;
+	bool end = false;
+	while (!end)
+	{
+		pair<int, Card*> ismax = countValue(pos);
+
+		if (ismax.first > max.first)
+		{
+			max = ismax;
+		}
+		else if (ismax.first == max.first)
+		{
+			if (ismax.second->compareTo(*(max.second)) == 1)
+			{
+				max = ismax;
+			}
+		}
+
+		pos = pos + ismax.first;
+		if (pos == handCards->size())
+		{
+			end = true;
+		}
 	}
-	return ret;
+
+	return pair<int,Card&>(max.first, *max.second);
+}
+
+pair<int, Card&>  Hand::getTheLeast()
+{
+	pair<int, Card*> min = countValue(0);
+
+	int pos = min.first;
+	bool end = false;
+	while (!end)
+	{
+		pair<int, Card*> ismin = countValue(pos);
+
+		if (ismin.first < min.first)
+		{
+			min = ismin;
+		}
+		else if (ismin.first == min.first)
+		{
+			if (ismin.second->compareTo(*(min.second)) == -1)
+			{
+				min = ismin;
+			}
+		}
+
+		pos = pos + ismin.first;
+		if (pos == handCards->size())
+		{
+			end = true;
+		}
+	}
+
+	return pair<int, Card&>(min.first, *min.second);
+}
+
+void Hand::removeReviiyot() {
+
+	pair<int, Card&>  crds = getTheMost();/////////////
+
+	while (crds.first == 4)
+	{
+		Card* copied = crds.second.copy();
+		deleteValue(*copied);
+		crds = getTheMost(); /////////////
+		delete copied;
+	}
 }
 
 /*
 Deleting all cardss in hand that has 'card' value
 */
 void Hand::deleteValue(Card& card) {
+	
 	int i = 0;
 	int compare = handCards->at(i)->compareTo(card);
 	while (compare <= 0) // the hand is sorded by value and therefor at the moment we reeached the last card with the given value, we can stop looking
@@ -99,4 +211,22 @@ void Hand::deleteValue(Card& card) {
 			compare = handCards->at(i)->compareTo(card);
 		}
 	}
+}
+
+Card* Hand::getHighestCard()
+{
+	return handCards->at(handCards->size() - 1);
+}
+
+Card* Hand::getLowestCard()
+{
+	return handCards->at(0);
+}
+
+string Hand::toString() {
+	string ret = "";
+	for (size_t i = 0; i < handCards->size(); i++) {
+		ret += handCards->at(i)->toString() + " ";
+	}
+	return ret;
 }

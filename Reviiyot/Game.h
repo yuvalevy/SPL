@@ -13,6 +13,8 @@ class Game {
 private:
 	vector<Player *> players;  //The list of the players
 	Deck deck;                 //The deck of the game
+	vector<int> *cardCount;		// Struct to count the player's card amounts.
+	
 public:
 	Game(char* configurationFile);
 	void init();

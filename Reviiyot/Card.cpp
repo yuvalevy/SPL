@@ -6,6 +6,11 @@ Card::~Card(){
 
 }
 
+Shape Card::getShape() const
+{
+	return shape;
+}
+
 Card::Card(Shape s):shape(s)
 {
 }
@@ -38,6 +43,11 @@ string Card::toString() {
 
 FigureCard::FigureCard(Figure f, Shape s):Card(s), figure(f)
 {
+}
+
+Card* FigureCard::copy()
+{
+	return new FigureCard(figure, getShape());
 }
 
 /*
@@ -93,6 +103,13 @@ string FigureCard:: toString() {
 
 NumericCard::NumericCard(int n,Shape s):Card(s), number(n)
 {
+}
+/*
+Copy constructor
+*/
+Card* NumericCard::copy()
+{
+	return new NumericCard(number, getShape());
 }
 
 /*
