@@ -13,7 +13,7 @@ protected:
 	const int pos;
 public:
 	Player(string name, int pos);
-	//int getPos();		//Returns the possition of the player
+	~Player();
 	string getName();   //Returns the name of the player
 	virtual pair<int, Card&> ask(vector<int> state) = 0; // Returning from how (int) and what (Card) he wants to ask from
 };
@@ -21,12 +21,14 @@ public:
 class PlayerType1 : public Player {
 public:
 	PlayerType1(string name, int pos);
+	~PlayerType1();
 	virtual pair<int, Card&> ask(vector<int> state) override;
 };
 
 class PlayerType2 : public Player {
 public:
 	PlayerType2(string name, int pos);
+	~PlayerType2();
 	virtual pair<int, Card&> ask(vector<int> state) override;
 };
 
@@ -35,6 +37,7 @@ private:
 	int nextAsk;
 public:
 	PlayerType3(string name, int pos);
+	~PlayerType3();
 	virtual pair<int, Card&> ask(vector<int> state) override;
 };
 
@@ -43,6 +46,7 @@ private:
 	int nextAsk;
 public:
 	PlayerType4(string name, int pos);
+	~PlayerType4();
 	virtual pair<int, Card&> ask(vector<int> state) override;
 };
 

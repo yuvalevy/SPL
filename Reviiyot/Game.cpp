@@ -4,29 +4,40 @@
 
 Game::Game(char* configurationFile)
 {
+	cout << "game created" << endl;
+
 	//TODO parse config
 	string deckLine = "KC QH 3D AH JH 2C 3S KS AS JS 3C KH AD QC JD QS 3H KD AC JC 2D 2H 2S QD";
 	int playersCount = 3;
 	int highest = 3;
 
-	//TODO: Change to PlayerType
 	players.push_back(new PlayerType1("Alice", 0));
 	players.push_back(new PlayerType2("Bob", 1));
 	players.push_back(new PlayerType3("Charlie", 2));
 
 	deck = Deck(deckLine);
 
-	//cout << deck.toString() << endl;
-	//cout << deck.getNumberOfCards() << endl;
-	/*Player p1 = Player("Linoy",1);
-	for (int i = 0; i < 10; i++)
+}
+
+Game::~Game()
+{
+	cout << "game deleted" << endl;
+
+	// delete players
+
+	while (players.size() != 0)
 	{
-		Card* c = deck.fetchCard();
-		p1.addCard(*c);
+		Player* temp = players.at(0);
+		players.erase(players.begin());
+		delete temp;
 	}
-	NumericCard card = NumericCard(3, Shape::Heart);
-	vector<Card*> vec = p1.search(card);
-*/
+
+	// delete card count
+
+	delete cardCount;
+	
+	//deck is on the stuck so after poping it the destructor will be called
+	//delete deck;
 }
 
 void Game::init() {

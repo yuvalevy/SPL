@@ -1,7 +1,23 @@
 #include "Hand.h"
+
 //The hand is sorted
 Hand::Hand():handCards(new vector<Card*>())
 {
+	cout << "hand created" << endl;
+}
+
+Hand::~Hand()
+{
+	cout << "hand deleted" << endl;
+
+	while (handCards->size() != 0 )
+	{
+		Card* temp = handCards->at(0);
+		handCards-> erase(handCards->begin());
+		delete temp;
+	}
+
+	delete handCards;
 }
 
 /*
@@ -107,8 +123,7 @@ pair<int, Card*> Hand::countValue(size_t pos)
 	return pair<int, Card*>(count, firstCard);
 }
 
-//TODO return copy consructor
-pair<int, Card&>  Hand::getTheMost()
+pair<int, Card&> Hand::getTheMost()
 {
 	pair<int, Card*> max = countValue(0);
 
@@ -136,7 +151,7 @@ pair<int, Card&>  Hand::getTheMost()
 	return pair<int,Card&>(max.first, *max.second);
 }
 
-pair<int, Card&>  Hand::getTheLeast()
+pair<int, Card&> Hand::getTheLeast()
 {
 	pair<int, Card*> min = countValue(0);
 

@@ -13,6 +13,7 @@ private:
 	
 public:
 	Hand();
+	~Hand();
 	bool addCard(Card &card);
 	bool removeCard(Card &card);
 	vector<Card*> search(Card& card); // Search the cards with the same value of 'card' (returns them but doesn't removes them)

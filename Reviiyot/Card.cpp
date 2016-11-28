@@ -3,7 +3,7 @@
 #include "Card.h"
 
 Card::~Card(){
-
+	cout << "card deleted" << endl;
 }
 
 Shape Card::getShape() const
@@ -13,6 +13,7 @@ Shape Card::getShape() const
 
 Card::Card(Shape s):shape(s)
 {
+	cout << "card created" << endl;
 }
 
 int Card::compareTo(Card& other, bool compareShape)
@@ -41,8 +42,15 @@ string Card::toString() {
 	return ret;
 }
 
+FigureCard::~FigureCard() {
+	cout << "figure card deleted" << endl;
+
+}
+
 FigureCard::FigureCard(Figure f, Shape s):Card(s), figure(f)
 {
+	cout << "figure card created" << endl;
+
 }
 
 Card* FigureCard::copy()
@@ -101,8 +109,15 @@ string FigureCard:: toString() {
 	return  ret + "" + Card::toString();
 }
 
+NumericCard::~NumericCard()
+{
+	cout << "numeric card deleted" << endl;
+}
+
 NumericCard::NumericCard(int n,Shape s):Card(s), number(n)
 {
+	cout << "numeric card created" << endl;
+
 }
 /*
 Copy constructor

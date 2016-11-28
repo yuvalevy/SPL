@@ -4,10 +4,13 @@ using namespace std;
 
 Deck::Deck()
 {
+	cout << "deck(D) created" << endl;
 }
 
 Deck::Deck(string deckLine):cards(new stack<Card*>())
 {
+	cout << "deck created" << endl;
+
 	string s = deckLine;
 	string delimiter = " ";
 
@@ -22,6 +25,20 @@ Deck::Deck(string deckLine):cards(new stack<Card*>())
 	}
 
 	addToStack(s);
+}
+
+Deck::~Deck() {
+
+	cout << "deck deleted" << endl;
+
+	while (cards->size() != 0)
+	{
+		Card* temp = cards->top();
+		cards->pop();
+		delete temp;
+	}
+
+	delete cards;
 }
 
 /*

@@ -34,6 +34,7 @@ class FigureCard : public Card {
 private:
 	Figure figure;
 public:
+	~FigureCard();
 	FigureCard(Figure f, Shape s);
 	virtual Card* copy() override;
 	virtual int compareTo(Card & other, bool compareShape = false) override;
@@ -44,6 +45,7 @@ class NumericCard : public Card {
 private:
 	int number;
 public:
+	~NumericCard();
 	NumericCard(int n,Shape s);
 	virtual Card* copy() override;
 	virtual int compareTo(Card & other, bool onlyType = false) override;

@@ -28,6 +28,9 @@ int main(int argc, char **argv) {
 	cout << "----------" << endl;
 	cout << "Final State:" << endl;
 	game.printState();*/
+
+	cout << "Game ended, now all destructors should be called" << endl;
+	
 	return 0;
 }
 
