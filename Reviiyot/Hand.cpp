@@ -54,7 +54,7 @@ vector<Card*> Hand::search(Card & card)
 {
 	vector<Card*> vec = vector<Card*>();
 	bool toStop = false;
-	int i = 0;
+	size_t i = 0;
 
 	while (!toStop && i < handCards->size())
 	{
@@ -107,6 +107,7 @@ pair<int, Card*> Hand::countValue(size_t pos)
 	return pair<int, Card*>(count, firstCard);
 }
 
+//TODO return copy consructor
 pair<int, Card&>  Hand::getTheMost()
 {
 	pair<int, Card*> max = countValue(0);
@@ -136,7 +137,7 @@ pair<int, Card&>  Hand::getTheMost()
 		}
 	}
 
-	return pair<int,Card&>(max.first, *(max.second));
+	return pair<int,Card&>(max.first, *max.second);
 }
 
 pair<int, Card&>  Hand::getTheLeast()
@@ -168,22 +169,24 @@ pair<int, Card&>  Hand::getTheLeast()
 		}
 	}
 
-	return pair<int, Card&>(min.first, *(min.second));
+	return pair<int, Card&>(min.first, *min.second);
 }
 
 void Hand::removeReviiyot() {
 
-	pair<int, Card&>  crds = getTheMost();
+	pair<int, Card&>  crds = getTheMost();/////////////
 
 	while (crds.first == 4)
 	{
-		deleteValue(crds.second);
-		crds = getTheMost();
+		Card* copied = crds.second.copy();
+		deleteValue(*copied);
+		crds = getTheMost(); /////////////
+		delete copied;
 	}
 }
 
 void Hand::deleteValue(Card& card) {
-
+	
 	int i = 0;
 	int compare = handCards->at(i)->compareTo(card);
 	while (compare <= 0)
@@ -205,6 +208,16 @@ void Hand::deleteValue(Card& card) {
 			compare = handCards->at(i)->compareTo(card);
 		}
 	}
+}
+
+Card* Hand::getHighestCard()
+{
+	return handCards->at(handCards->size() - 1);
+}
+
+Card* Hand::getLowestCard()
+{
+	return handCards->at(0);
 }
 
 string Hand::toString() {

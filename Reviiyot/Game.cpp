@@ -6,45 +6,44 @@ Game::Game(char* configurationFile)
 {
 	//TODO parse config
 	string deckLine = "KC QH 3D AH JH 2C 3S KS AS JS 3C KH AD QC JD QS 3H KD AC JC 2D 2H 2S QD";
-	//int playersCount = 3;
-	//int highest = 3;
-	//
-	////TODO: Change to PlayerType
-	//players.push_back(new Player("Alice", 1));
-	//players.push_back(new Player("Bob", 2));
-	//players.push_back(new Player("Charlie", 3));
+	int playersCount = 3;
+	int highest = 3;
+
+	//TODO: Change to PlayerType
+	players.push_back(new PlayerType1("Alice", 1));
+	players.push_back(new PlayerType2("Bob", 2));
+	players.push_back(new PlayerType3("Charlie", 3));
 
 	deck = Deck(deckLine);
-	//
 
 	//cout << deck.toString() << endl;
 	//cout << deck.getNumberOfCards() << endl;
-	Player p1 = Player("Linoy",1);
+	/*Player p1 = Player("Linoy",1);
 	for (int i = 0; i < 10; i++)
 	{
 		Card* c = deck.fetchCard();
 		p1.addCard(*c);
 	}
-	NumericCard card=NumericCard(3, Shape::Heart);
+	NumericCard card = NumericCard(3, Shape::Heart);
 	vector<Card*> vec = p1.search(card);
-
-	//pair<int,Card&> resultMost = p1.getTheMostOf(); //A
-	//pair<int, Card&> resultLeast = p1.getTheLeastOf();//2
+*/
 }
 
 void Game::init() {
 
+	cardCount = new vector<int>();
+
 	// divide 7 cards for each player
 	for (size_t i = 0; i < players.size(); i++)
 	{
-		for (int i = 1; i <= 7; i++)
+		for (int j = 1; j <= 7; j++)
 		{
 			players.at(i)->addCard(*(deck.fetchCard()));
 		}
 
 		players.at(i)->removeReviiyot();
+		cardCount->push_back(7);
 	}
-
 }
 
 void Game::play()
@@ -56,15 +55,17 @@ void Game::play()
 	{
 		Player* pa = players.at(currentPlayer); // asking player
 	
-		pair<int, Card&> stage1 = pa->ask();
-		Player* pg = players.at(stage1.first); // getting player
+		pair<int, Card&> askedInfo = pa->ask(*cardCount);
+		Player* pg = players.at(askedInfo.first); // getting player
 
-		vector<Card*> givenCards = pg->search(stage1.second);
+		vector<Card*> givenCards = pg->search(askedInfo.second);
 		
 		// If the getting player doesn't has those cards
 		if (givenCards.size() == 0)
 		{
-			pa->addCard(*deck.fetchCard());
+			Card* card = deck.fetchCard();
+			if (card != 0)
+				pa->addCard(*card);
 		}
 		else {
 			// If player2 gives all his cards. he doesn't draw more cards
@@ -78,10 +79,14 @@ void Game::play()
 			for each (Card* card in givenCards)
 			{
 				pa->addCard(*card);
+
 				pg->removeCard(*card);
+
 				if (toAdd)
 				{
-					pg->addCard(*deck.fetchCard());
+					Card* card = deck.fetchCard();
+					if (card != 0)
+						pg->addCard(*card);
 				}
 			}
 		}
@@ -90,9 +95,12 @@ void Game::play()
 		pg->removeReviiyot();
 		pa->removeReviiyot();
 
+		cardCount->at(currentPlayer) = pa->getNumberOfCards();
+		cardCount->at(askedInfo.first) = pg->getNumberOfCards();
+
 		//Check for winners
 		//TODO: Ajust for printing
-		if (pg->getNumberOfCards() == 0 )
+		if (pg->getNumberOfCards() == 0)
 		{
 			isEnded = true;
 		}

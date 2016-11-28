@@ -28,9 +28,12 @@ Deck::Deck(string deckLine):cards(new stack<Card*>())
 Deletes and returns the top card from the deck
 */
 Card* Deck::fetchCard() {
-	Card* card = cards->top();
-	cards->pop();
-	return card;
+	if (cards->size() != 0) {
+		Card* card = cards->top();
+		cards->pop();
+		return card;
+	}
+	return 0;
 }
 
 /*

@@ -8,26 +8,42 @@ using namespace std;
 
 class Player : public Hand {
 private:
-	const int pos;
 	const string name;
+protected:
+	const int pos;
 public:
 	Player(string name, int pos);
-	int getPos();		//Returns the possition of the player
+	//int getPos();		//Returns the possition of the player
 	string getName();   //Returns the name of the player
-	//TODO: make abstruct
-	 pair<int, Card&> ask(); // Returning from how (int) and what (Card) he wants to ask
+	virtual pair<int, Card&> ask(vector<int> state) = 0; // Returning from how (int) and what (Card) he wants to ask from
 };
 
 class PlayerType1 : public Player {
+public:
+	PlayerType1(string name, int pos);
+	virtual pair<int, Card&> ask(vector<int> state) override;
 };
 
-class PlayerType2 : public Player { 
+class PlayerType2 : public Player {
+public:
+	PlayerType2(string name, int pos);
+	virtual pair<int, Card&> ask(vector<int> state) override;
 };
 
-class PlayerType3 : public Player {  
+class PlayerType3 : public Player {
+private:
+	int nextAsk;
+public:
+	PlayerType3(string name, int pos);
+	virtual pair<int, Card&> ask(vector<int> state) override;
 };
 
-class PlayerType4 : public Player { 
+class PlayerType4 : public Player {
+private:
+	int nextAsk;
+public:
+	PlayerType4(string name, int pos);
+	virtual pair<int, Card&> ask(vector<int> state) override;
 };
 
 #endif

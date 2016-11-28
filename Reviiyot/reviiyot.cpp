@@ -11,14 +11,14 @@ int main(int argc, char **argv) {
 	 char s[10];
 	 std::cin >> s;
 	 */
-	/* 
+	
 	char* configurationFile = argv[1];
 	
 	Game game = Game(configurationFile);
 	game.init();
 	Game initializedGame = game;
 	game.play();
-
+	/*
 	cout << std::endl;
 	game.printWinner();
 	game.printNumberOfTurns();
