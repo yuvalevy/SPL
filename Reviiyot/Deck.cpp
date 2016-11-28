@@ -2,12 +2,13 @@
 #include <string>
 using namespace std;
 
-Deck::Deck()
+Deck::Deck():cards(new stack<Card*>())
 {
 	cout << "deck(D) created" << endl;
 }
 
-Deck::Deck(string deckLine):cards(new stack<Card*>())
+
+void Deck::createDeck(string deckLine)
 {
 	cout << "deck created" << endl;
 

@@ -16,6 +16,11 @@ string Player::getName()
 	return name;
 }
 
+string Player::toString()
+{
+	return name + ": " + Hand::toString();
+}
+
 PlayerType1::PlayerType1(string name, int pos):Player(name,pos)
 {
 	cout << "player 1 created" << endl;

@@ -16,6 +16,7 @@ public:
 	~Player();
 	string getName();   //Returns the name of the player
 	virtual pair<int, Card&> ask(vector<int> state) = 0; // Returning from how (int) and what (Card) he wants to ask from
+	string toString();
 };
 
 class PlayerType1 : public Player {
