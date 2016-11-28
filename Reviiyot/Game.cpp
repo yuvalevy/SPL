@@ -10,9 +10,9 @@ Game::Game(char* configurationFile)
 	int highest = 3;
 
 	//TODO: Change to PlayerType
-	players.push_back(new PlayerType1("Alice", 1));
-	players.push_back(new PlayerType2("Bob", 2));
-	players.push_back(new PlayerType3("Charlie", 3));
+	players.push_back(new PlayerType1("Alice", 0));
+	players.push_back(new PlayerType2("Bob", 1));
+	players.push_back(new PlayerType3("Charlie", 2));
 
 	deck = Deck(deckLine);
 
@@ -50,9 +50,10 @@ void Game::play()
 {
 	int currentPlayer = 0;
 	bool isEnded = false;
-
+	int turns = 0;
 	while (!isEnded)
 	{
+		turns++;
 		Player* pa = players.at(currentPlayer); // asking player
 	
 		pair<int, Card&> askedInfo = pa->ask(*cardCount);

@@ -113,8 +113,8 @@ pair<int, Card&>  Hand::getTheMost()
 	pair<int, Card*> max = countValue(0);
 
 	int pos = max.first;
-	bool end = false;
-	while (!end)
+	
+	while (pos != handCards->size())
 	{
 		pair<int, Card*> ismax = countValue(pos);
 
@@ -131,10 +131,6 @@ pair<int, Card&>  Hand::getTheMost()
 		}
 
 		pos = pos + ismax.first;
-		if (pos == handCards->size())
-		{
-			end = true;
-		}
 	}
 
 	return pair<int,Card&>(max.first, *max.second);
@@ -145,8 +141,7 @@ pair<int, Card&>  Hand::getTheLeast()
 	pair<int, Card*> min = countValue(0);
 
 	int pos = min.first;
-	bool end = false;
-	while (!end)
+	while (pos != handCards->size())
 	{
 		pair<int, Card*> ismin = countValue(pos);
 
@@ -163,10 +158,7 @@ pair<int, Card&>  Hand::getTheLeast()
 		}
 
 		pos = pos + ismin.first;
-		if (pos == handCards->size())
-		{
-			end = true;
-		}
+	
 	}
 
 	return pair<int, Card&>(min.first, *min.second);
@@ -174,13 +166,20 @@ pair<int, Card&>  Hand::getTheLeast()
 
 void Hand::removeReviiyot() {
 
-	pair<int, Card&>  crds = getTheMost();/////////////
+	pair<int, Card&>  crds = getTheMost();
 
 	while (crds.first == 4)
 	{
 		Card* copied = crds.second.copy();
 		deleteValue(*copied);
-		crds = getTheMost(); /////////////
+		if (handCards->size()!= 0)
+		{
+			crds = getTheMost();
+		}
+		else
+		{
+			crds.first = 0;
+		}
 		delete copied;
 	}
 }
