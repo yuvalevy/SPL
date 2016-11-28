@@ -4,9 +4,8 @@ using namespace std;
 
 Deck::Deck():cards(new stack<Card*>())
 {
-	cout << "deck(D) created" << endl;
+	cout << "deck created" << endl;
 }
-
 
 void Deck::createDeck(string deckLine)
 {
