@@ -8,6 +8,66 @@ Game::Game(char* configurationFile) :deck()
 	conf = configurationFile;
 }
 
+Game::Game(const Game & other)
+{
+	conf = other.conf;
+	deck = other.deck;
+
+	for (size_t i = 0; i < other.players.size(); i++)
+	{
+		Player* get = other.players.at(i);
+		Player* copied = get->copy();
+		players.push_back(copied);
+	}
+
+	cardCount = new vector<unsigned long>();
+	for (size_t i = 0; i < other.cardCount->size(); i++)
+	{
+		cardCount->push_back(other.cardCount->at(i));
+	}
+
+	turns = other.turns;
+	verbalConfig = other.verbalConfig;
+	highestNum = other.highestNum;
+}
+
+Game & Game::operator=(const Game & other)
+{
+	deck = other.deck;
+
+	//delete current
+	while (!players.empty())
+	{
+		Player* player = players.at(0);
+		players.erase(players.begin());
+		delete player;
+	}
+
+	for (size_t i = 0; i < other.players.size(); i++)
+	{
+		Player* get = other.players.at(0);
+		players.push_back(get->copy());
+	}
+
+	cardCount->clear();
+
+	for (size_t i = 0; i < other.cardCount->size(); i++)
+	{
+		cardCount->push_back(other.cardCount->at(i));
+	}
+
+	turns = other.turns;
+	verbalConfig = other.verbalConfig;
+	highestNum = other.highestNum;
+
+	return *this;
+}
+
+Game & Game::operator=(Game && other)
+{
+	return *this;
+}
+
 Game::~Game()
 {
 	cout << "game deleted" << endl;
@@ -65,7 +125,6 @@ void Game::play()
 {
 	unsigned long currentPlayer = 0;
 	bool isEnded = false;
-	unsigned long turns = 0;
 	while (!isEnded)
 	{
 		turns++;
@@ -136,11 +195,7 @@ void Game::play()
 void Game::printTurn(unsigned long turn)
 {
 	cout << "Turn " << turn << endl;
-	cout << "Deck: " << deck.toString() << endl;
-	for (size_t i = 0; i < players.size(); i++)
-	{
-		cout << players.at(i)->toString() << endl;
-	}
+	printState();
 }
 
 void Game::printAsk(string p1, string p2, Card& card)
@@ -151,9 +206,46 @@ void Game::printAsk(string p1, string p2, Card& card)
 	cout << p1 << " asked " << p2 << " for the value " << cs << endl;
 }
 
-void Game::printState() {}      //Print the state of the game as described in the assignment.
-void Game::printWinner() {}       //Print the winner of the game as describe in the assignment.
-void Game::printNumberOfTurns() {}
+void Game::printState() //Print the state of the game as described in the assignment.
+{
+	cout << "Deck: " << deck.toString() << endl;
+	for (size_t i = 0; i < players.size(); i++)
+	{
+		cout << players.at(i)->toString() << endl;
+	}
+}
+
+void Game::printWinner() {
+	string s1 = "";
+	string s2 = "";
+
+	for (size_t i = 0; i < players.size(); i++)
+	{
+		if (players.at(i)->getNumberOfCards() == 0)
+		{
+			if (s1.compare("") == 0)
+			{
+				s1 = players.at(i)->getName();
+			}
+			else {
+				s2 = players.at(i)->getName();
+				break;
+			}
+		}
+	}
+
+	if (s2.compare("") == 0) {
+		cout << "***** The Winner is: " << s1 << " *****" << endl;
+	}
+	else {
+		cout << "***** The winners are: " << s1 << " and " << s2 << " *****" << endl;
+	}
+}       //Print the winner of the game as describe in the assignment.
+
+void Game::printNumberOfTurns() 
+{
+	cout << "Number of turns: " << turns << endl;
+}
 
 void Game::parseConfig()
 {

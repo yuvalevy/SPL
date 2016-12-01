@@ -7,10 +7,63 @@ Deck::Deck():cards(new stack<Card*>())
 	cout << "deck created" << endl;
 }
 
+Deck::Deck(const Deck & other):cards(new stack<Card*>())
+{
+	stack<Card*> temp = *other.cards;
+	stack<Card*> reverse = stack<Card*>();
+
+	//perform deep copy
+	while (!temp.empty())
+	{
+		Card* copied = temp.top();
+		temp.pop();
+		reverse.push(copied->copy());
+	}
+
+	while (!reverse.empty())
+	{
+		Card* copied = reverse.top();
+		reverse.pop();
+		cards->push(copied);
+	}
+}
+
+Deck & Deck::operator=(const Deck & other)
+{
+	if (this != &other)
+	{
+		// Delete current cards
+		while (!cards->empty())
+		{
+			Card* card = cards->top();
+			cards->pop();
+			delete card;
+		}
+
+		stack<Card*> temp = *other.cards;
+		stack<Card*> reverse = stack<Card*>();
+
+		//perform deep copy
+		while (!temp.empty())
+		{
+			Card* copied = temp.top();
+			temp.pop();
+			reverse.push(copied->copy());
+		}
+
+		while (!reverse.empty())
+		{
+			Card* copied = reverse.top();
+			reverse.pop();
+			cards->push(copied);
+		}
+	}
+
+	return *this;
+}
+
 void Deck::createDeck(string deckLine)
 {
-	cout << "deck created" << endl;
-
 	string s = deckLine;
 	string delimiter = " ";
 

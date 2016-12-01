@@ -11,6 +11,11 @@ Shape Card::getShape() const
 	return shape;
 }
 
+void Card::setShape(Shape shape)
+{
+	shape = shape;
+}
+
 Card::Card(Shape s):shape(s)
 {
 	cout << "card created" << endl;
@@ -51,6 +56,20 @@ FigureCard::FigureCard(Figure f, Shape s):Card(s), figure(f)
 {
 	cout << "figure card created" << endl;
 
+}
+
+FigureCard::FigureCard(const FigureCard & other):Card(other.getShape())
+{
+	figure = other.figure;
+}
+
+FigureCard & FigureCard::operator=(const FigureCard & other)
+{
+	if (this != &other) {
+		figure = other.figure;
+		setShape(other.getShape());
+	}
+	return *this;
 }
 
 Card* FigureCard::copy()
@@ -119,6 +138,23 @@ NumericCard::NumericCard(int n,Shape s):Card(s), number(n)
 	cout << "numeric card created" << endl;
 
 }
+
+
+NumericCard::NumericCard(const NumericCard & other):Card(other.getShape())
+{
+	number = other.number;
+}
+
+NumericCard & NumericCard::operator=(const NumericCard & other)
+{
+	if (this != &other) {
+		number = other.number;
+		setShape(other.getShape());
+	}
+	return *this;
+}
+
+
 /*
 Copy constructor
 */

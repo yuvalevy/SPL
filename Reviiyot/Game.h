@@ -24,12 +24,15 @@ private:
 	Deck deck;                 //The deck of the game
 	vector<unsigned long> *cardCount;		// Struct to count the player's card amounts.
 	const char* conf;
-
+	unsigned long turns = 0;
 	unsigned long verbalConfig;
 	unsigned long highestNum;
 
 public:
 	Game(char* configurationFile);
+	Game(const Game& other);
+	Game& operator=(const Game& other);
+	Game& operator=(Game&& other);
 	~Game();
 	void init();
 	void play();

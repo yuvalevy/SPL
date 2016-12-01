@@ -63,6 +63,35 @@ bool Hand::removeCard(Card &card) {
 	return finished;
 }
 
+Hand::Hand(const Hand & other)
+{
+	handCards = new vector<Card*>();
+
+	for (size_t i = 0; i < other.handCards->size(); i++)
+	{
+		Card* copied = other.handCards->at(i);
+		handCards->push_back(copied->copy());
+	}
+}
+
+Hand & Hand::operator=(const Hand & other)
+{
+	while (handCards->size()!=0)
+	{
+		Card* card = handCards->at(0);
+		handCards->erase(handCards->begin());
+		delete card;
+	}
+	
+	for (size_t i = 0; i < other.handCards->size(); i++)
+	{
+		Card* copied = other.handCards->at(i);
+		handCards->push_back(copied->copy());
+	}
+
+	return *this;
+}
+
 /*
 Search all cards by the value of 'card'
 */

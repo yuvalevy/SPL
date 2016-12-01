@@ -14,6 +14,8 @@ private:
 	void addToStack(string token);
 public:
 	Deck();
+	Deck(const Deck& other);
+	Deck& operator=(const Deck& other);
 	void createDeck(string deckLine);
 	~Deck();
 	Card* fetchCard();   //Returns the top card of the deck and remove it rom the deck

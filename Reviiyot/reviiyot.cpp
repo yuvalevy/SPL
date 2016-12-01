@@ -10,18 +10,20 @@ int main(int argc, char **argv) {
 
 	Game game = Game(configurationFile);
 	game.init();
-	//Game initializedGame = game;
+	Game initializedGame= game;
 	game.play();
-	/*
+	
 	cout << std::endl;
 	game.printWinner();
 	game.printNumberOfTurns();
 	cout << "----------" << endl;
+	
+	
 	cout << "Initial State:" << endl;
 	initializedGame.printState();
 	cout << "----------" << endl;
 	cout << "Final State:" << endl;
-	game.printState();*/
+	game.printState();
 
 	cout << "Game ended, now all destructors should be called" << endl;
 	
