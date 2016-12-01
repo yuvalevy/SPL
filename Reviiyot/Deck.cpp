@@ -4,7 +4,6 @@ using namespace std;
 
 Deck::Deck():cards(new stack<Card*>())
 {
-	cout << "deck created" << endl;
 }
 
 Deck::Deck(const Deck & other):cards(new stack<Card*>())
@@ -81,9 +80,6 @@ void Deck::createDeck(string deckLine)
 }
 
 Deck::~Deck() {
-
-	cout << "deck deleted" << endl;
-
 	while (cards->size() != 0)
 	{
 		Card* temp = cards->top();
@@ -110,7 +106,7 @@ Card* Deck::fetchCard() {
 Returns the number of cards in the deck
 */
 int Deck::getNumberOfCards() {
-	return cards->size();
+	return static_cast<int>(cards->size());
 }
 
 /*

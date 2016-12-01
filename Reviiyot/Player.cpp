@@ -2,7 +2,6 @@
 
 Player::Player(string name, unsigned long pos):Hand(), pos(pos),name(name)
 {
-	cout << "player created" << endl;
 }
 
 Player::Player(const Player & other):Hand(other),name(other.name), pos(other.pos)
@@ -18,8 +17,6 @@ Player & Player::operator=(const Player & other)
 
 Player::~Player()
 {
-	cout << "player deleted" << endl;
-	//TODO check if entering hand
 }
 
 string Player::getName()
@@ -34,7 +31,6 @@ string Player::toString()
 
 PlayerType1::PlayerType1(string name, unsigned long pos):Player(name,pos)
 {
-	cout << "player 1 created" << endl;
 }
 
 PlayerType1::PlayerType1(const Player& other) : Player(other)
@@ -78,7 +74,6 @@ Player * PlayerType1::copy()
 
 PlayerType2::PlayerType2(string name, unsigned long pos) :Player(name, pos)
 {
-	cout << "player 2 created" << endl;
 }
 
 PlayerType2::~PlayerType2()
@@ -122,8 +117,6 @@ Player * PlayerType2::copy()
 
 PlayerType3::PlayerType3(string name, unsigned long pos) :Player(name, pos)
 {
-	cout << "player 3 created" << endl;
-
 	nextAsk = 0;
 }
 
@@ -163,8 +156,6 @@ Player * PlayerType3::copy()
 
 PlayerType4::PlayerType4(string name, unsigned long pos):Player(name,pos)
 {
-	cout << "player 4 created" << endl;
-
 	nextAsk = 0;
 }
 

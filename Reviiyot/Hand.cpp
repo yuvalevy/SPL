@@ -3,13 +3,10 @@
 //The hand is sorted
 Hand::Hand():handCards(new vector<Card*>())
 {
-	cout << "hand created" << endl;
 }
 
 Hand::~Hand()
 {
-	cout << "hand deleted" << endl;
-
 	while (handCards->size() != 0 )
 	{
 		Card* temp = handCards->at(0);
@@ -122,7 +119,7 @@ vector<Card*> Hand::search(Card & card)
 Returns the number of cards in the hand
 */
 int Hand::getNumberOfCards() {
-	return handCards->size();
+	return static_cast<int>(handCards->size());
 }
 
 /*

@@ -3,7 +3,6 @@
 #include "Card.h"
 
 Card::~Card(){
-	cout << "card deleted" << endl;
 }
 
 Shape Card::getShape() const
@@ -18,7 +17,6 @@ void Card::setShape(Shape shape)
 
 Card::Card(Shape s):shape(s)
 {
-	cout << "card created" << endl;
 }
 
 int Card::compareTo(Card& other, bool compareShape)
@@ -48,14 +46,10 @@ string Card::toString() {
 }
 
 FigureCard::~FigureCard() {
-	cout << "figure card deleted" << endl;
-
 }
 
 FigureCard::FigureCard(Figure f, Shape s):Card(s), figure(f)
 {
-	cout << "figure card created" << endl;
-
 }
 
 FigureCard::FigureCard(const FigureCard & other):Card(other.getShape())
@@ -130,13 +124,10 @@ string FigureCard:: toString() {
 
 NumericCard::~NumericCard()
 {
-	cout << "numeric card deleted" << endl;
 }
 
 NumericCard::NumericCard(int n,Shape s):Card(s), number(n)
 {
-	cout << "numeric card created" << endl;
-
 }
 
 

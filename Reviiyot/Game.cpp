@@ -3,8 +3,6 @@
 
 Game::Game(char* configurationFile) :deck()
 {
-	cout << "game created" << endl;
-	
 	conf = configurationFile;
 }
 
@@ -70,8 +68,6 @@ Game & Game::operator=(Game && other)
 
 Game::~Game()
 {
-	cout << "game deleted" << endl;
-
 	// delete players
 	while (players.size() != 0)
 	{
@@ -91,20 +87,6 @@ Game::~Game()
 void Game::init() {
 
 	parseConfig();
-
-	////TODO parse config
-	//string deckLine = "KC QH 3D AH JH 2C 3S KS AS JS 3C KH AD QC JD QS 3H KD AC JC 2D 2H 2S QD";
-	//conf = deckLine.data();
-
-	////TODO parde conf
-	//int highest = 3;
-
-	//players.push_back(new PlayerType1("Alice", 0));
-	//players.push_back(new PlayerType2("Bob", 1));
-	//players.push_back(new PlayerType3("Charlie", 2));
-
-	//deck.createDeck(conf);
-
 	//card count for each player
 	cardCount = new vector<unsigned long>();
 
@@ -128,14 +110,17 @@ void Game::play()
 	while (!isEnded)
 	{
 		turns++;
-		printTurn(turns);
-
+	
 		Player* pa = players.at(currentPlayer); // asking player
 	
 		pair<unsigned long, Card&> askedInfo = pa->ask(*cardCount);
 		Player* pg = players.at(askedInfo.first); // getting player
 
-		printAsk(pa->getName(), pg->getName(), askedInfo.second);
+		if (verbalConfig == 1)
+		{
+			printTurn(turns);
+			printAsk(pa->getName(), pg->getName(), askedInfo.second);
+		}
 
 		vector<Card*> givenCards = pg->search(askedInfo.second);
 		
@@ -194,13 +179,13 @@ void Game::play()
 
 void Game::printTurn(unsigned long turn)
 {
+	cout << "" << endl;
 	cout << "Turn " << turn << endl;
 	printState();
 }
 
 void Game::printAsk(string p1, string p2, Card& card)
 {
-	//TODO: check this
 	string cs = card.toString();
 	cs = cs.substr(0, cs.size() - 1);
 	cout << p1 << " asked " << p2 << " for the value " << cs << endl;
