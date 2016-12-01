@@ -132,7 +132,7 @@ void Deck::addToStack(string token)
 		int num = stoi(value);
 		cards->push(new NumericCard(num, shape));
 	}
-	catch (const invalid_argument)
+	catch (const invalid_argument out_of_range)
 	{
 		//value is not a number, it is a single char as a figure
 		switch (value.at(0))
@@ -141,6 +141,7 @@ void Deck::addToStack(string token)
 			case 'J': cards->push(new FigureCard(Figure::Jack, shape)); break;
 			case 'K': cards->push(new FigureCard(Figure::King, shape)); break;
 			case 'Q': cards->push(new FigureCard(Figure::Queen, shape)); break;
+			default: break;
 		}
 	}
 
