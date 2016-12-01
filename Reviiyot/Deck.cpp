@@ -132,7 +132,7 @@ void Deck::addToStack(string token)
 		int num = stoi(value);
 		cards->push(new NumericCard(num, shape));
 	}
-	catch (const invalid_argument out_of_range)
+	catch (const exception&)
 	{
 		//value is not a number, it is a single char as a figure
 		switch (value.at(0))
