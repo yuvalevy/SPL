@@ -40,7 +40,6 @@ PlayerType1::PlayerType1(const Player& other) : Player(other)
 
 PlayerType1::~PlayerType1()
 {
-	cout << "player 1 deleted" << endl;
 }
 
 pair<unsigned long, Card&> PlayerType1::ask(vector<unsigned long> state)
@@ -78,7 +77,6 @@ PlayerType2::PlayerType2(string name, unsigned long pos) :Player(name, pos)
 
 PlayerType2::~PlayerType2()
 {
-	cout << "player 2 deleted" << endl;
 }
 
 PlayerType2::PlayerType2(const Player& other) : Player(other)
@@ -115,19 +113,16 @@ Player * PlayerType2::copy()
 	return new PlayerType2(*this);
 }
 
-PlayerType3::PlayerType3(string name, unsigned long pos) :Player(name, pos)
+PlayerType3::PlayerType3(string name, unsigned long pos) :Player(name, pos),nextAsk(0)
 {
-	nextAsk = 0;
 }
 
 PlayerType3::~PlayerType3()
 {
-	cout << "player 3 deleted" << endl;
 }
 
-PlayerType3::PlayerType3(const Player& other) : Player(other)
+PlayerType3::PlayerType3(const Player& other) : Player(other),nextAsk(0)
 {
-	cout << "player 3 created" << endl;
 }
 
 pair<unsigned long, Card&> PlayerType3::ask(vector<unsigned long> state)
@@ -154,19 +149,16 @@ Player * PlayerType3::copy()
 	return p;
 }
 
-PlayerType4::PlayerType4(string name, unsigned long pos):Player(name,pos)
+PlayerType4::PlayerType4(string name, unsigned long pos):Player(name,pos),nextAsk(0)
 {
-	nextAsk = 0;
 }
 
 PlayerType4::~PlayerType4()
 {
-	cout << "player 4 deleted" << endl;
 }
 
-PlayerType4::PlayerType4(const Player& other) : Player(other)
+PlayerType4::PlayerType4(const Player& other) : Player(other),nextAsk(0)
 {
-	cout << "player 4 created" << endl;
 }
 
 

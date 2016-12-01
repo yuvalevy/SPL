@@ -13,7 +13,7 @@ private:
 	
 public:
 	Hand();
-	~Hand();
+	virtual ~Hand();
 	bool addCard(Card &card);
 	bool removeCard(Card &card);
 	Hand(const Hand& other);
