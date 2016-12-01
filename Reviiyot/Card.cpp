@@ -52,9 +52,8 @@ FigureCard::FigureCard(Figure f, Shape s):Card(s), figure(f)
 {
 }
 
-FigureCard::FigureCard(const FigureCard & other):Card(other.getShape())
+FigureCard::FigureCard(const FigureCard & other):Card(other.getShape()),figure(other.figure)
 {
-	figure = other.figure;
 }
 
 FigureCard & FigureCard::operator=(const FigureCard & other)
@@ -76,7 +75,7 @@ Compares two cards. if oncompareShape is true, compares the shapes too
 */
 int FigureCard::compareTo(Card& other, bool compareShape)
 {
-	if (NumericCard* p = dynamic_cast<NumericCard*>(&other))
+	if (nullptr != dynamic_cast<NumericCard*>(&other))
 	{
 		return 1;
 	}
@@ -131,9 +130,8 @@ NumericCard::NumericCard(int n,Shape s):Card(s), number(n)
 }
 
 
-NumericCard::NumericCard(const NumericCard & other):Card(other.getShape())
+NumericCard::NumericCard(const NumericCard & other):Card(other.getShape()),number(other.number)
 {
-	number = other.number;
 }
 
 NumericCard & NumericCard::operator=(const NumericCard & other)
@@ -159,7 +157,7 @@ Compares two cards. if oncompareShape is true, compares the shapes too
 */
 int NumericCard::compareTo(Card& other, bool compareShape)
 {
-	if (FigureCard* p = dynamic_cast<FigureCard*>(&other))
+	if (nullptr != dynamic_cast<FigureCard*>(&other))
 	{
 		return -1;
 	}
