@@ -34,6 +34,7 @@ public:
 	Game& operator=(const Game& other);
 	Game& operator=(Game&& other);
 	~Game();
+	string trim(string & str);
 	void init();
 	void play();
 	void printTurn(unsigned long turn);

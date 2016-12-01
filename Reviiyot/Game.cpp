@@ -1,9 +1,8 @@
 #include "Game.h"
 #include <fstream>
 
-Game::Game(char* configurationFile) :deck()
+Game::Game(char* configurationFile) :players(vector<Player*>()),deck(),cardCount(new vector<unsigned long>()), conf(configurationFile),turns(0),verbalConfig(0),highestNum(0)
 {
-	conf = configurationFile;
 }
 
 Game::Game(const Game & other)
@@ -84,11 +83,22 @@ Game::~Game()
 	//delete deck;
 }
 
+string Game::trim(string& str)
+{
+	size_t first = str.find_first_not_of(' ');
+	if (string::npos == first)
+	{
+		first = 0;
+	}
+	size_t last = str.find_last_not_of(' ');
+	return str.substr(first, (last - first + 1));
+}
+
 void Game::init() {
 
 	parseConfig();
 	//card count for each player
-	cardCount = new vector<unsigned long>();
+	//cardCount = new vector<unsigned long>();
 
 	// divide 7 cards for each player
 	for (size_t i = 0; i < players.size(); i++)
@@ -249,7 +259,7 @@ void Game::parseConfig()
 		if (line.at(0) == '#') {
 			continue;
 		}
-		//TODO check if need to trim
+		line = trim(line);
 		switch (state) {
 
 			case VERBAL:
