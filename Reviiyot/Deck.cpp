@@ -50,7 +50,7 @@ Card* Deck::fetchCard() {
 		cards->pop();
 		return card;
 	}
-	return 0;
+	return nullptr;
 }
 
 /*

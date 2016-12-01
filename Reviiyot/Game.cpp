@@ -46,7 +46,7 @@ void Game::init() {
 	//deck.createDeck(conf);
 
 	//card count for each player
-	cardCount = new vector<int>();
+	cardCount = new vector<unsigned long>();
 
 	// divide 7 cards for each player
 	for (size_t i = 0; i < players.size(); i++)
@@ -63,9 +63,9 @@ void Game::init() {
 
 void Game::play()
 {
-	int currentPlayer = 0;
+	unsigned long currentPlayer = 0;
 	bool isEnded = false;
-	int turns = 0;
+	unsigned long turns = 0;
 	while (!isEnded)
 	{
 		turns++;
@@ -73,7 +73,7 @@ void Game::play()
 
 		Player* pa = players.at(currentPlayer); // asking player
 	
-		pair<int, Card&> askedInfo = pa->ask(*cardCount);
+		pair<unsigned long, Card&> askedInfo = pa->ask(*cardCount);
 		Player* pg = players.at(askedInfo.first); // getting player
 
 		printAsk(pa->getName(), pg->getName(), askedInfo.second);
@@ -84,7 +84,7 @@ void Game::play()
 		if (givenCards.size() == 0)
 		{
 			Card* card = deck.fetchCard();
-			if (card != 0)
+			if (card != nullptr)
 				pa->addCard(*card);
 		}
 		else {
@@ -105,7 +105,7 @@ void Game::play()
 				if (toAdd)
 				{
 					Card* card = deck.fetchCard();
-					if (card != 0)
+					if (card != nullptr)
 						pg->addCard(*card);
 				}
 			}
@@ -131,11 +131,9 @@ void Game::play()
 		
 		currentPlayer = (currentPlayer +1 ) % (players.size());
 	}
-
-	//TODO: Destructor
 }
 
-void Game::printTurn(int turn)
+void Game::printTurn(unsigned long turn)
 {
 	cout << "Turn " << turn << endl;
 	cout << "Deck: " << deck.toString() << endl;
@@ -163,7 +161,7 @@ void Game::parseConfig()
 	file.open(conf);
 	string line;
 	ConfigState state = VERBAL;
-	int playersCount = 0;
+	unsigned long playersCount = 0;
 
 	while (!file.eof())
 	{
@@ -179,13 +177,13 @@ void Game::parseConfig()
 
 			case VERBAL:
 			{
-				verbalConfig = stoi(line);
+				verbalConfig = stol(line);
 				state = HIGHESTNUMVAL;
 				break;
 			}
 			case HIGHESTNUMVAL:
 			{
-				highestNum = stoi(line);
+				highestNum = stol(line);
 				state = DECK;
 				break;
 			}
@@ -214,7 +212,7 @@ void Game::parseConfig()
 	
 }
 
-Player* Game::createPlayer(char type, string name, int pos)
+Player* Game::createPlayer(char type, string name, unsigned long pos)
 {
 	Player* player;
 
