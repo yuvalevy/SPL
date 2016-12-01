@@ -7,7 +7,7 @@ using namespace std;
 int main(int argc, char **argv) {
 	
 	char* configurationFile = argv[1];
-	
+
 	Game game = Game(configurationFile);
 	game.init();
 	//Game initializedGame = game;

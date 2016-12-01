@@ -181,6 +181,12 @@ pair<int, Card&> Hand::getTheLeast()
 
 void Hand::removeReviiyot() {
 
+	// no cards to remove
+	if (handCards->size() == 0)
+	{
+		return;
+	}
+
 	pair<int, Card&>  crds = getTheMost();
 
 	while (crds.first == 4)

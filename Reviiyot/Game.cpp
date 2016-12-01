@@ -1,9 +1,10 @@
 #include "Game.h"
+#include <fstream>
 
 Game::Game(char* configurationFile) :deck()
 {
 	cout << "game created" << endl;
-
+	
 	conf = configurationFile;
 }
 
@@ -29,20 +30,22 @@ Game::~Game()
 
 void Game::init() {
 
-	//TODO parse config
-	string deckLine = "KC QH 3D AH JH 2C 3S KS AS JS 3C KH AD QC JD QS 3H KD AC JC 2D 2H 2S QD";
-	conf = deckLine.data();
+	parseConfig();
 
-	//TODO parde conf
-	int playersCount = 3;
-	int highest = 3;
+	////TODO parse config
+	//string deckLine = "KC QH 3D AH JH 2C 3S KS AS JS 3C KH AD QC JD QS 3H KD AC JC 2D 2H 2S QD";
+	//conf = deckLine.data();
 
-	players.push_back(new PlayerType1("Alice", 0));
-	players.push_back(new PlayerType2("Bob", 1));
-	players.push_back(new PlayerType3("Charlie", 2));
+	////TODO parde conf
+	//int highest = 3;
 
-	deck.createDeck(conf);
+	//players.push_back(new PlayerType1("Alice", 0));
+	//players.push_back(new PlayerType2("Bob", 1));
+	//players.push_back(new PlayerType3("Charlie", 2));
 
+	//deck.createDeck(conf);
+
+	//card count for each player
 	cardCount = new vector<int>();
 
 	// divide 7 cards for each player
@@ -153,3 +156,95 @@ void Game::printAsk(string p1, string p2, Card& card)
 void Game::printState() {}      //Print the state of the game as described in the assignment.
 void Game::printWinner() {}       //Print the winner of the game as describe in the assignment.
 void Game::printNumberOfTurns() {}
+
+void Game::parseConfig()
+{
+	ifstream file;
+	file.open(conf);
+	string line;
+	ConfigState state = VERBAL;
+	int playersCount = 0;
+
+	while (!file.eof())
+	{
+		getline(file, line);
+		if (line == "") {
+			continue;
+		}
+		if (line.at(0) == '#') {
+			continue;
+		}
+		//TODO check if need to trim
+		switch (state) {
+
+			case VERBAL:
+			{
+				verbalConfig = stoi(line);
+				state = HIGHESTNUMVAL;
+				break;
+			}
+			case HIGHESTNUMVAL:
+			{
+				highestNum = stoi(line);
+				state = DECK;
+				break;
+			}
+			case DECK:
+			{
+				deck.createDeck(line);
+				state = PLAYERS;
+				break;
+			}
+			case PLAYERS:
+			{
+				char typePlayer = line.at(line.length() - 1);
+				string name = line.substr(0, line.length() - 2);
+				
+				Player* p = createPlayer(typePlayer, name,playersCount);
+				playersCount++;
+				players.push_back(p);
+				break;
+			}
+			default:
+				break;
+
+		}
+
+	}
+	
+}
+
+Player* Game::createPlayer(char type, string name, int pos)
+{
+	Player* player;
+
+	switch (type)
+	{
+		case '1':
+		{
+			player = new PlayerType1(name, pos);
+			break;
+		}
+		case '2':
+		{
+			player = new PlayerType2(name, pos);
+			break;
+		}
+		case '3':
+		{
+			player = new PlayerType3(name, pos);
+			break;
+		}
+		case '4':
+		{
+			player = new PlayerType4(name, pos);
+			break;
+		}
+		default:
+			break;		
+	}
+
+	return player;
+}
+
+
