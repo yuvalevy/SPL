@@ -23,7 +23,7 @@ Adding the new card to the hand, in sorted order
 bool Hand::addCard(Card &card) {
 	
 	bool finished = false;
-	int i = 0;
+	size_t i = 0;
 	while (i != handCards->size() && !finished) {
 
 		//if -> the new card is smaller than the next card, add it previusly
@@ -48,7 +48,7 @@ Removing the given card from the hand
 */
 bool Hand::removeCard(Card &card) {
 	bool finished = false;
-	int i = 0;
+	size_t i = 0;
 
 	while (i != handCards->size() && !finished) {
 		if (card.compareTo(*(handCards->at(i))) == 0) {
@@ -60,10 +60,8 @@ bool Hand::removeCard(Card &card) {
 	return finished;
 }
 
-Hand::Hand(const Hand & other)
+Hand::Hand(const Hand & other):handCards(new vector<Card*>())
 {
-	handCards = new vector<Card*>();
-
 	for (size_t i = 0; i < other.handCards->size(); i++)
 	{
 		Card* copied = other.handCards->at(i);
@@ -153,7 +151,7 @@ pair<int, Card&> Hand::getTheMost()
 {
 	pair<int, Card*> max = countValue(0);
 
-	int pos = max.first;
+	size_t pos = max.first;
 	
 	while (pos != handCards->size())
 	{
@@ -181,7 +179,7 @@ pair<int, Card&> Hand::getTheLeast()
 {
 	pair<int, Card*> min = countValue(0);
 
-	int pos = min.first;
+	size_t pos = min.first;
 	while (pos != handCards->size())
 	{
 		pair<int, Card*> ismin = countValue(pos);
@@ -236,7 +234,7 @@ Deleting all cardss in hand that has 'card' value
 */
 void Hand::deleteValue(Card& card) {
 	
-	int i = 0;
+	size_t i = 0;
 	int compare = handCards->at(i)->compareTo(card);
 	while (compare <= 0) // the hand is sorded by value and therefor at the moment we reeached the last card with the given value, we can stop looking
 	{
