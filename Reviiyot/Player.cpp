@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(string name, unsigned long pos):Hand(), pos(pos),name(name)
+Player::Player(string name, unsigned long pos):Hand(),name(name),pos(pos)
 {
 }
 
@@ -8,12 +8,12 @@ Player::Player(const Player & other):Hand(other),name(other.name), pos(other.pos
 {
 }
 
-Player & Player::operator=(const Player & other)
-{
-	Hand::Hand(other);
-	//TODO is it possible
-	return *this;
-}
+//Player & Player::operator=(const Player & other)
+//{
+//	Hand::Hand(other);
+//	//TODO is it possible
+//	return *this;
+//}
 
 Player::~Player()
 {
