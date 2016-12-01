@@ -130,20 +130,23 @@ void Deck::addToStack(string token)
 	{
 		//tryparse to int
 		int num = stoi(value);
-		cards->push(new NumericCard(num, shape));
+		NumericCard* card = new NumericCard(num, shape);
+		cards->push(card);
 	}
 	catch (const exception&)
 	{
+		FigureCard* card = nullptr;
 		//value is not a number, it is a single char as a figure
 		switch (value.at(0))
 		{
-			case 'A': cards->push(new FigureCard(Figure::Ace, shape)); break;
-			case 'J': cards->push(new FigureCard(Figure::Jack, shape)); break;
-			case 'K': cards->push(new FigureCard(Figure::King, shape)); break;
-			case 'Q': cards->push(new FigureCard(Figure::Queen, shape)); break;
-			default: break;
+		case 'A': card = new FigureCard(Figure::Ace, shape); break;
+		case 'J': card = new FigureCard(Figure::Jack, shape); break;
+		case 'K': card = new FigureCard(Figure::King, shape); break;
+		case 'Q': card = new FigureCard(Figure::Queen, shape); break;
+		default: break;
 		}
-	}
+		cards->push(card);
+	}	
 
 }
 
