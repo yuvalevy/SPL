@@ -5,10 +5,8 @@ Game::Game(char* configurationFile) :players(vector<Player*>()),deck(),cardCount
 {
 }
 
-Game::Game(const Game & other)
+Game::Game(const Game & other) : players(vector<Player*>()), deck(other.deck), cardCount(new vector<unsigned long>()), conf(other.conf), turns(other.turns), verbalConfig(other.verbalConfig), highestNum(other.highestNum)
 {
-	conf = other.conf;
-	deck = other.deck;
 
 	for (size_t i = 0; i < other.players.size(); i++)
 	{
@@ -17,15 +15,10 @@ Game::Game(const Game & other)
 		players.push_back(copied);
 	}
 
-	cardCount = new vector<unsigned long>();
 	for (size_t i = 0; i < other.cardCount->size(); i++)
 	{
 		cardCount->push_back(other.cardCount->at(i));
 	}
-
-	turns = other.turns;
-	verbalConfig = other.verbalConfig;
-	highestNum = other.highestNum;
 }
 
 Game & Game::operator=(const Game & other)
@@ -97,8 +90,6 @@ string Game::trim(string& str)
 void Game::init() {
 
 	parseConfig();
-	//card count for each player
-	//cardCount = new vector<unsigned long>();
 
 	// divide 7 cards for each player
 	for (size_t i = 0; i < players.size(); i++)
@@ -150,8 +141,9 @@ void Game::play()
 			}
 
 			// Remove from pg and add to pa
-			for each (Card* card in givenCards)
+			for(size_t i = 0 ; i < givenCards.size(); i++)
 			{
+				Card* card = givenCards.at(i);
 				pa->addCard(*card);
 
 				pg->removeCard(*card);
