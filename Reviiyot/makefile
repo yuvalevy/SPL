@@ -19,7 +19,6 @@ bin/Game.o: src/Game.cpp
 # Depends on the source and header files 
 bin/Deck.o: src/Deck.cpp
 	g++ -g -Wall -Weffc++ -std=c++11 -c -Iinclude -o bin/Deck.o src/Deck.cpp
-	@echo 'FINISHED DECK'
 
 # Depends on the source and header files 
 bin/Player.o: src/Player.cpp
@@ -34,7 +33,6 @@ bin/Hand.o: src/Hand.cpp
 # Depends on the source and header files 
 bin/Card.o: src/Card.cpp
 	g++ -g -Wall -Weffc++ -std=c++11 -c -Iinclude -o bin/Card.o src/Card.cpp
-	@echo 'FINISHED card'
 
 #Clean the build directory
 clean:
