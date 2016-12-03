@@ -99,7 +99,10 @@ void Game::init() {
 			players.at(i)->addCard(*(deck.fetchCard()));
 		}
 
-		players.at(i)->removeReviiyot();
+		while (players.at(i)->removeReviiyot())
+		{
+		}
+
 		cardCount->push_back(7);
 	}
 }
@@ -158,8 +161,12 @@ void Game::play()
 		}
 	
 		// Both playes removes all their Reviiyot
-		pg->removeReviiyot();
-		pa->removeReviiyot();
+		while (pg->removeReviiyot())
+		{
+		}
+		while (pa->removeReviiyot())
+		{
+		}
 
 		cardCount->at(currentPlayer) = pa->getNumberOfCards();
 		cardCount->at(askedInfo.first) = pg->getNumberOfCards();

@@ -27,8 +27,7 @@ public:
 	void deleteValue(Card & card);
 	Card * getHighestCard();
 	pair<int, Card*> countValue(size_t pos);
-	void removeReviiyot();
-	// Return a list of the cards, separated by space, in one line, in a sorted order, ex: "2S 5D 10H"
+	bool removeReviiyot(); // returning true whe a Reviiya was deleted
 };
 
 #endif

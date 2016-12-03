@@ -203,30 +203,24 @@ pair<int, Card&> Hand::getTheLeast()
 	return pair<int, Card&>(min.first, *min.second);
 }
 
-void Hand::removeReviiyot() {
+bool Hand::removeReviiyot() {
 
 	// no cards to remove
 	if (handCards->size() == 0)
 	{
-		return;
+		return false;
 	}
 
 	pair<int, Card&>  crds = getTheMost();
 
-	while (crds.first == 4)
+	if(crds.first == 4)
 	{
 		Card* copied = crds.second.copy();
 		deleteValue(*copied);
-		if (handCards->size()!= 0)
-		{
-			crds = getTheMost();
-		}
-		else
-		{
-			crds.first = 0;
-		}
 		delete copied;
+		return true;
 	}
+	return false;
 }
 
 /*
